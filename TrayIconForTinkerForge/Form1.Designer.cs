@@ -54,7 +54,6 @@
             // 
             // TFTrayIcon
             // 
-            this.TFTrayIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.TFTrayIcon.ContextMenuStrip = this.TFTryIconMenu;
             this.TFTrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("TFTrayIcon.Icon")));
             this.TFTrayIcon.Text = "TinkerForge: BrickDaemonManager";
