@@ -105,19 +105,7 @@ namespace TrayIconForTinkerForge
         {
             sc.Refresh();
 
-            if (sc.Status != ServiceControllerStatus.Stopped || sc.Status != ServiceControllerStatus.StopPending)
-            {
-                button_ServiceStart.Enabled = false;
-                button_ServiceStop.Enabled = true;
-                button_ServiceRestart.Enabled = true;
-
-                startServiceToolStripMenuItem.Enabled = false;
-                stopServiceToolStripMenuItem.Enabled = true;
-
-                label2.ForeColor = Color.DarkGreen;
-                TFTrayIcon.Icon = TrayIconForTinkerForge.Properties.Resources.TF_running;
-            }
-            else if (sc.Status != ServiceControllerStatus.Running || sc.Status != ServiceControllerStatus.StartPending)
+            if (sc.Status == ServiceControllerStatus.Stopped || sc.Status == ServiceControllerStatus.StopPending)
             {
                 button_ServiceStart.Enabled = true;
                 button_ServiceStop.Enabled = false;
@@ -129,17 +117,18 @@ namespace TrayIconForTinkerForge
                 label2.ForeColor = Color.DarkRed;
                 TFTrayIcon.Icon = TrayIconForTinkerForge.Properties.Resources.TF_stopped;
             }
-
-            /*switch (sc.Status.ToString())
+            else if (sc.Status == ServiceControllerStatus.Running || sc.Status == ServiceControllerStatus.StartPending)
             {
-                case "Running":
-                    
-                    break;
+                button_ServiceStart.Enabled = false;
+                button_ServiceStop.Enabled = true;
+                button_ServiceRestart.Enabled = true;
 
-                case "Stopped":
-                    
-                    break;
-            }*/
+                startServiceToolStripMenuItem.Enabled = false;
+                stopServiceToolStripMenuItem.Enabled = true;
+
+                label2.ForeColor = Color.DarkGreen;
+                TFTrayIcon.Icon = TrayIconForTinkerForge.Properties.Resources.TF_running;
+            }
 
             label2.Text = sc.Status.ToString();
         }

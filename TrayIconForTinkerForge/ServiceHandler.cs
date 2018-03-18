@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ServiceProcess;
+using System.Windows.Forms;
 
 namespace TrayIconForTinkerForge
 {    class ServiceHandler
@@ -12,30 +13,10 @@ namespace TrayIconForTinkerForge
 
             switch (ServiceCommand)
             {
-                case "start":
-                    try
-                    {
-                        if (sc.Status != ServiceControllerStatus.Running || sc.Status != ServiceControllerStatus.StartPending)
-                        {
-                            sc.Start();
-                            sc.WaitForStatus(ServiceControllerStatus.Running);
-                            returnVar = true;
-                        }
-                        else
-                        {
-                            returnVar = false;
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        returnVar = false;
-                    }
-                    break;
-
                 case "stop":
                     try
                     {
-                        if (sc.Status != ServiceControllerStatus.Stopped || sc.Status != ServiceControllerStatus.StopPending)
+                        if (sc.Status == ServiceControllerStatus.Running || sc.Status == ServiceControllerStatus.StartPending)
                         {
                             sc.Stop();
                             sc.WaitForStatus(ServiceControllerStatus.Stopped);
@@ -46,8 +27,30 @@ namespace TrayIconForTinkerForge
                             returnVar = false;
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        MessageBox.Show(ex.Message);
+                        returnVar = false;
+                    }
+                    break;
+
+                case "start":
+                    try
+                    {
+                        if (sc.Status == ServiceControllerStatus.Stopped || sc.Status == ServiceControllerStatus.StopPending)
+                        {
+                            sc.Start();
+                            sc.WaitForStatus(ServiceControllerStatus.Running);
+                            returnVar = true;
+                        }
+                        else
+                        {
+                            returnVar = false;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
                         returnVar = false;
                     }
                     break;
@@ -55,7 +58,7 @@ namespace TrayIconForTinkerForge
                 case "restart":
                     try
                     {
-                        if (sc.Status != ServiceControllerStatus.Running || sc.Status != ServiceControllerStatus.StartPending)
+                        if (sc.Status == ServiceControllerStatus.Running || sc.Status == ServiceControllerStatus.StartPending)
                         {
                             sc.Stop();
                             sc.WaitForStatus(ServiceControllerStatus.Stopped);
@@ -69,8 +72,9 @@ namespace TrayIconForTinkerForge
                             returnVar = false;
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        MessageBox.Show(ex.Message);
                         returnVar = false;
                     }
                     break;
