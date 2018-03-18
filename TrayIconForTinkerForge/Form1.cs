@@ -48,16 +48,6 @@ namespace TrayIconForTinkerForge
             {
                 MessageBox.Show("Fehler beim Starten");
             }
-
-            /*try
-            {
-                sc.Start();
-                sc.WaitForStatus(ServiceControllerStatus.Running);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }*/
         }
 
         //=============================================================================================================
@@ -68,15 +58,6 @@ namespace TrayIconForTinkerForge
             {
                 MessageBox.Show("Fehler beim Stoppen");
             }
-            /*try
-            {
-                sc.Stop();
-                sc.WaitForStatus(ServiceControllerStatus.Stopped);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }*/
         }
 
         //=============================================================================================================
@@ -97,7 +78,14 @@ namespace TrayIconForTinkerForge
         //=============================================================================================================
         private void Button1_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                Process.Start("C:\\Program Files (x86)\\Tinkerforge\\Brickd\\LogViewer.exe");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         //=============================================================================================================
