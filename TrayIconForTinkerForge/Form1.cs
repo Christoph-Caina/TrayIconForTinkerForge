@@ -1,0 +1,217 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using System.ServiceProcess;
+using System.Diagnostics;
+
+namespace TrayIconForTinkerForge
+{
+    public partial class Form1 : Form
+    {
+        ServiceHandler s_Handler = new ServiceHandler();
+
+        //=============================================================================================================
+        public Form1()
+        {
+            InitializeComponent();
+            TFTrayIcon.Visible = true;
+            ShowInTaskbar = false;
+            WindowState = FormWindowState.Minimized;
+
+            FormClosing += Form1_FormClosing;               // Form-Closing
+
+            timer1.Interval = 100;
+        }
+
+        //=============================================================================================================
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            label2.ForeColor = Color.Black;
+            label2.Text = "detecting...";
+
+            timer1.Enabled = true;
+            timer1.Start();
+        }
+
+        //=============================================================================================================
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            timer1.Enabled = false;
+            timer1.Stop();
+        }
+
+        //=============================================================================================================
+        private void Button_ServiceStart_Click(object sender, EventArgs e)
+        {
+
+            if(!s_Handler.DoServiceAction("start"))
+            {
+                MessageBox.Show("Fehler beim Starten");
+            }
+
+            /*try
+            {
+                sc.Start();
+                sc.WaitForStatus(ServiceControllerStatus.Running);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }*/
+        }
+
+        //=============================================================================================================
+        private void Button_ServiceStop_Click(object sender, EventArgs e)
+        {
+
+            if (!s_Handler.DoServiceAction("stop"))
+            {
+                MessageBox.Show("Fehler beim Stoppen");
+            }
+            /*try
+            {
+                sc.Stop();
+                sc.WaitForStatus(ServiceControllerStatus.Stopped);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }*/
+        }
+
+        //=============================================================================================================
+        private void Button_ServiceRestart_Click(object sender, EventArgs e)
+        {
+
+            if (!s_Handler.DoServiceAction("restart"))
+            {
+                MessageBox.Show("Fehler beim Neustarten");
+            }
+
+            /*try
+            {
+                sc.Stop();
+                sc.WaitForStatus(ServiceControllerStatus.Stopped);
+                sc.Start();
+                sc.WaitForStatus(ServiceControllerStatus.Running);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }*/
+        }
+
+        //=============================================================================================================
+        private void Button_ServicePause_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //=============================================================================================================
+        private void Button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //=============================================================================================================
+        private void CheckServiceState()
+        {
+            sc.Refresh();
+
+            switch (sc.Status.ToString())
+            {
+                case "Running":
+                    button_ServiceStart.Enabled = false;
+                    button_ServiceStop.Enabled = true;
+                    button_ServiceRestart.Enabled = true;
+                    label2.ForeColor = Color.DarkGreen;
+                    break;
+
+                case "Stopped":
+                    button_ServiceStart.Enabled = true;
+                    button_ServiceStop.Enabled = false;
+                    button_ServiceRestart.Enabled = false;
+                    label2.ForeColor = Color.DarkRed;
+                    break;
+            }
+
+            label2.Text = sc.Status.ToString();
+        }
+
+        //=============================================================================================================
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            CheckServiceState();
+        }
+
+        //=============================================================================================================
+        private void StartServiceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!s_Handler.DoServiceAction("start"))
+            {
+                MessageBox.Show("Fehler beim Starten");
+            }
+        }
+
+        //=============================================================================================================
+        private void StopServiceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!s_Handler.DoServiceAction("stop"))
+            {
+                MessageBox.Show("Fehler beim Stoppen");
+            }
+        }
+
+        //=============================================================================================================
+        private void Form1_Resize(object sender, System.EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                ShowInTaskbar = false;
+                TFTrayIcon.Visible = true;
+            }
+
+        }
+
+        //=============================================================================================================
+        private void TFTrayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if(WindowState == FormWindowState.Normal)
+            {
+                WindowState = FormWindowState.Minimized;
+//                ShowInTaskbar = false;
+            }
+            else
+            {
+                WindowState = FormWindowState.Normal;
+//                ShowInTaskbar = false;
+            }
+
+            ShowInTaskbar = false;            
+        }
+
+        //=============================================================================================================
+        private void programmBeendenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        //=============================================================================================================
+        private void logViewerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start("C:\\Program Files (x86)\\Tinkerforge\\Brickd\\LogViewer.exe");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+    }
+}
