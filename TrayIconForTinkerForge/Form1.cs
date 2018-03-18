@@ -28,6 +28,8 @@ namespace TrayIconForTinkerForge
             label2.ForeColor = Color.Black;
             label2.Text = "detecting...";
 
+            //TFTrayIcon.Icon = TrayIconForTinkerForge.Properties.Resources.TF_running;
+
             timer1.Enabled = true;
             timer1.Start();
         }
@@ -81,23 +83,10 @@ namespace TrayIconForTinkerForge
         //=============================================================================================================
         private void Button_ServiceRestart_Click(object sender, EventArgs e)
         {
-
             if (!s_Handler.DoServiceAction("restart"))
             {
                 MessageBox.Show("Fehler beim Neustarten");
             }
-
-            /*try
-            {
-                sc.Stop();
-                sc.WaitForStatus(ServiceControllerStatus.Stopped);
-                sc.Start();
-                sc.WaitForStatus(ServiceControllerStatus.Running);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }*/
         }
 
         //=============================================================================================================
@@ -124,6 +113,7 @@ namespace TrayIconForTinkerForge
                     button_ServiceStop.Enabled = true;
                     button_ServiceRestart.Enabled = true;
                     label2.ForeColor = Color.DarkGreen;
+                    TFTrayIcon.Icon = TrayIconForTinkerForge.Properties.Resources.TF_running;
                     break;
 
                 case "Stopped":
@@ -131,16 +121,11 @@ namespace TrayIconForTinkerForge
                     button_ServiceStop.Enabled = false;
                     button_ServiceRestart.Enabled = false;
                     label2.ForeColor = Color.DarkRed;
+                    TFTrayIcon.Icon = TrayIconForTinkerForge.Properties.Resources.TF_stopped;
                     break;
             }
 
             label2.Text = sc.Status.ToString();
-        }
-
-        //=============================================================================================================
-        private void Timer1_Tick(object sender, EventArgs e)
-        {
-            CheckServiceState();
         }
 
         //=============================================================================================================
@@ -178,19 +163,17 @@ namespace TrayIconForTinkerForge
             if(WindowState == FormWindowState.Normal)
             {
                 WindowState = FormWindowState.Minimized;
-//                ShowInTaskbar = false;
             }
             else
             {
                 WindowState = FormWindowState.Normal;
-//                ShowInTaskbar = false;
             }
 
             ShowInTaskbar = false;            
         }
 
         //=============================================================================================================
-        private void programmBeendenToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ProgrammBeendenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
         }
@@ -206,6 +189,12 @@ namespace TrayIconForTinkerForge
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        //=============================================================================================================
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            CheckServiceState();
         }
     }
 }

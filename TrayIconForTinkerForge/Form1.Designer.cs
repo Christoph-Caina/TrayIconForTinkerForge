@@ -203,7 +203,7 @@
             this.programmBeendenToolStripMenuItem.Name = "programmBeendenToolStripMenuItem";
             this.programmBeendenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.programmBeendenToolStripMenuItem.Text = "Programm Beenden";
-            this.programmBeendenToolStripMenuItem.Click += new System.EventHandler(this.programmBeendenToolStripMenuItem_Click);
+            this.programmBeendenToolStripMenuItem.Click += new System.EventHandler(this.ProgrammBeendenToolStripMenuItem_Click);
             // 
             // Form1
             // 

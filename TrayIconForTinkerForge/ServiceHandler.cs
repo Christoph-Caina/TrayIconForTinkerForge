@@ -17,7 +17,6 @@ namespace TrayIconForTinkerForge
                     {
                         sc.Start();
                         sc.WaitForStatus(ServiceControllerStatus.Running);
-
                         returnVar = true;
                     }
                     catch (Exception)
