@@ -28,8 +28,6 @@ namespace TrayIconForTinkerForge
             label2.ForeColor = Color.Black;
             label2.Text = "detecting...";
 
-            //TFTrayIcon.Icon = TrayIconForTinkerForge.Properties.Resources.TF_running;
-
             timer1.Enabled = true;
             timer1.Start();
         }
