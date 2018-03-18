@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.ServiceProcess;
 
 namespace TrayIconForTinkerForge
 {
@@ -20,6 +21,9 @@ namespace TrayIconForTinkerForge
             FormClosing += Form1_FormClosing;               // Form-Closing
 
             timer1.Interval = 100;
+
+            timer1.Enabled = true;
+            timer1.Start();
         }
 
         //=============================================================================================================
@@ -27,9 +31,6 @@ namespace TrayIconForTinkerForge
         {
             label2.ForeColor = Color.Black;
             label2.Text = "detecting...";
-
-            timer1.Enabled = true;
-            timer1.Start();
         }
 
         //=============================================================================================================
@@ -104,24 +105,41 @@ namespace TrayIconForTinkerForge
         {
             sc.Refresh();
 
-            switch (sc.Status.ToString())
+            if (sc.Status != ServiceControllerStatus.Stopped || sc.Status != ServiceControllerStatus.StopPending)
+            {
+                button_ServiceStart.Enabled = false;
+                button_ServiceStop.Enabled = true;
+                button_ServiceRestart.Enabled = true;
+
+                startServiceToolStripMenuItem.Enabled = false;
+                stopServiceToolStripMenuItem.Enabled = true;
+
+                label2.ForeColor = Color.DarkGreen;
+                TFTrayIcon.Icon = TrayIconForTinkerForge.Properties.Resources.TF_running;
+            }
+            else if (sc.Status != ServiceControllerStatus.Running || sc.Status != ServiceControllerStatus.StartPending)
+            {
+                button_ServiceStart.Enabled = true;
+                button_ServiceStop.Enabled = false;
+                button_ServiceRestart.Enabled = false;
+
+                startServiceToolStripMenuItem.Enabled = true;
+                stopServiceToolStripMenuItem.Enabled = false;
+
+                label2.ForeColor = Color.DarkRed;
+                TFTrayIcon.Icon = TrayIconForTinkerForge.Properties.Resources.TF_stopped;
+            }
+
+            /*switch (sc.Status.ToString())
             {
                 case "Running":
-                    button_ServiceStart.Enabled = false;
-                    button_ServiceStop.Enabled = true;
-                    button_ServiceRestart.Enabled = true;
-                    label2.ForeColor = Color.DarkGreen;
-                    TFTrayIcon.Icon = TrayIconForTinkerForge.Properties.Resources.TF_running;
+                    
                     break;
 
                 case "Stopped":
-                    button_ServiceStart.Enabled = true;
-                    button_ServiceStop.Enabled = false;
-                    button_ServiceRestart.Enabled = false;
-                    label2.ForeColor = Color.DarkRed;
-                    TFTrayIcon.Icon = TrayIconForTinkerForge.Properties.Resources.TF_stopped;
+                    
                     break;
-            }
+            }*/
 
             label2.Text = sc.Status.ToString();
         }
@@ -152,7 +170,6 @@ namespace TrayIconForTinkerForge
                 ShowInTaskbar = false;
                 TFTrayIcon.Visible = true;
             }
-
         }
 
         //=============================================================================================================
@@ -177,7 +194,7 @@ namespace TrayIconForTinkerForge
         }
 
         //=============================================================================================================
-        private void logViewerToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LogViewerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {

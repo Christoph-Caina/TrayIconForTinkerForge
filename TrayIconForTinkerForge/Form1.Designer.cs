@@ -36,6 +36,7 @@
             this.startServiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopServiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logViewerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.programmBeendenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button_ServiceRestart = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button_ServiceStart = new System.Windows.Forms.Button();
@@ -46,7 +47,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.sc = new System.ServiceProcess.ServiceController();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.programmBeendenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TFTryIconMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -67,7 +67,7 @@
             this.logViewerToolStripMenuItem,
             this.programmBeendenToolStripMenuItem});
             this.TFTryIconMenu.Name = "TFTryIconMenu";
-            this.TFTryIconMenu.Size = new System.Drawing.Size(181, 92);
+            this.TFTryIconMenu.Size = new System.Drawing.Size(181, 70);
             // 
             // BrickDaemon
             // 
@@ -81,17 +81,19 @@
             // 
             // startServiceToolStripMenuItem
             // 
+            this.startServiceToolStripMenuItem.Enabled = false;
             this.startServiceToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("startServiceToolStripMenuItem.Image")));
             this.startServiceToolStripMenuItem.Name = "startServiceToolStripMenuItem";
-            this.startServiceToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.startServiceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.startServiceToolStripMenuItem.Text = "StartService";
             this.startServiceToolStripMenuItem.Click += new System.EventHandler(this.StartServiceToolStripMenuItem_Click);
             // 
             // stopServiceToolStripMenuItem
             // 
+            this.stopServiceToolStripMenuItem.Enabled = false;
             this.stopServiceToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("stopServiceToolStripMenuItem.Image")));
             this.stopServiceToolStripMenuItem.Name = "stopServiceToolStripMenuItem";
-            this.stopServiceToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.stopServiceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.stopServiceToolStripMenuItem.Text = "StopService";
             this.stopServiceToolStripMenuItem.Click += new System.EventHandler(this.StopServiceToolStripMenuItem_Click);
             // 
@@ -101,7 +103,15 @@
             this.logViewerToolStripMenuItem.Name = "logViewerToolStripMenuItem";
             this.logViewerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.logViewerToolStripMenuItem.Text = "LogViewer";
-            this.logViewerToolStripMenuItem.Click += new System.EventHandler(this.logViewerToolStripMenuItem_Click);
+            this.logViewerToolStripMenuItem.Click += new System.EventHandler(this.LogViewerToolStripMenuItem_Click);
+            // 
+            // programmBeendenToolStripMenuItem
+            // 
+            this.programmBeendenToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("programmBeendenToolStripMenuItem.Image")));
+            this.programmBeendenToolStripMenuItem.Name = "programmBeendenToolStripMenuItem";
+            this.programmBeendenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.programmBeendenToolStripMenuItem.Text = "Programm Beenden";
+            this.programmBeendenToolStripMenuItem.Click += new System.EventHandler(this.ProgrammBeendenToolStripMenuItem_Click);
             // 
             // button_ServiceRestart
             // 
@@ -197,14 +207,6 @@
             this.panel1.Size = new System.Drawing.Size(364, 90);
             this.panel1.TabIndex = 12;
             // 
-            // programmBeendenToolStripMenuItem
-            // 
-            this.programmBeendenToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("programmBeendenToolStripMenuItem.Image")));
-            this.programmBeendenToolStripMenuItem.Name = "programmBeendenToolStripMenuItem";
-            this.programmBeendenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.programmBeendenToolStripMenuItem.Text = "Programm Beenden";
-            this.programmBeendenToolStripMenuItem.Click += new System.EventHandler(this.ProgrammBeendenToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -213,9 +215,9 @@
             this.ClientSize = new System.Drawing.Size(389, 260);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "Form1";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "BrickDaemonServiceManager";

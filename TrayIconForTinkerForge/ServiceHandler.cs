@@ -15,9 +15,16 @@ namespace TrayIconForTinkerForge
                 case "start":
                     try
                     {
-                        sc.Start();
-                        sc.WaitForStatus(ServiceControllerStatus.Running);
-                        returnVar = true;
+                        if (sc.Status != ServiceControllerStatus.Running || sc.Status != ServiceControllerStatus.StartPending)
+                        {
+                            sc.Start();
+                            sc.WaitForStatus(ServiceControllerStatus.Running);
+                            returnVar = true;
+                        }
+                        else
+                        {
+                            returnVar = false;
+                        }
                     }
                     catch (Exception)
                     {
@@ -28,10 +35,16 @@ namespace TrayIconForTinkerForge
                 case "stop":
                     try
                     {
-                        sc.Stop();
-                        sc.WaitForStatus(ServiceControllerStatus.Stopped);
-
-                        returnVar = true;
+                        if (sc.Status != ServiceControllerStatus.Stopped || sc.Status != ServiceControllerStatus.StopPending)
+                        {
+                            sc.Stop();
+                            sc.WaitForStatus(ServiceControllerStatus.Stopped);
+                            returnVar = true;
+                        }
+                        else
+                        {
+                            returnVar = false;
+                        }
                     }
                     catch (Exception)
                     {
@@ -42,12 +55,19 @@ namespace TrayIconForTinkerForge
                 case "restart":
                     try
                     {
-                        sc.Stop();
-                        sc.WaitForStatus(ServiceControllerStatus.Stopped);
-                        sc.Start();
-                        sc.WaitForStatus(ServiceControllerStatus.Running);
+                        if (sc.Status != ServiceControllerStatus.Running || sc.Status != ServiceControllerStatus.StartPending)
+                        {
+                            sc.Stop();
+                            sc.WaitForStatus(ServiceControllerStatus.Stopped);
+                            sc.Start();
+                            sc.WaitForStatus(ServiceControllerStatus.Running);
 
-                        returnVar = true;
+                            returnVar = true;
+                        }
+                        else
+                        {
+                            returnVar = false;
+                        }
                     }
                     catch (Exception)
                     {
