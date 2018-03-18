@@ -116,6 +116,13 @@ namespace TrayIconForTinkerForge
 
                 label2.ForeColor = Color.DarkRed;
                 TFTrayIcon.Icon = TrayIconForTinkerForge.Properties.Resources.TF_stopped;
+
+                TFTrayIcon.BalloonTipTitle = "BrickDaemon Service ist gestoppt!";
+                TFTrayIcon.BalloonTipText = "Der Dienst Brick Daemon befindet sich nun im Status \"STOP\"."
+                    + Environment.NewLine
+                    + "Um weiterhin mit deinem Brick-Stapel kommunizieren zu können, muss der Dienst wieder gestartet werden!";
+
+                TFTrayIcon.ShowBalloonTip(10000);
             }
             else if (sc.Status == ServiceControllerStatus.Running || sc.Status == ServiceControllerStatus.StartPending)
             {
@@ -128,6 +135,13 @@ namespace TrayIconForTinkerForge
 
                 label2.ForeColor = Color.DarkGreen;
                 TFTrayIcon.Icon = TrayIconForTinkerForge.Properties.Resources.TF_running;
+
+                TFTrayIcon.BalloonTipTitle = "BrickDaemon Service ist gestartet!";
+                TFTrayIcon.BalloonTipText = "Der Dienst Brick Daemon befindet sich nun im Status \"AUSGEFÜHRT\"."
+                    + Environment.NewLine
+                    + "Du kannst nun eine Verbindung mit deinem Brick-Stapel aufbauen.";
+
+                TFTrayIcon.ShowBalloonTip(10000);
             }
 
             label2.Text = sc.Status.ToString();

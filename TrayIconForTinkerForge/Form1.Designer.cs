@@ -54,6 +54,7 @@
             // 
             // TFTrayIcon
             // 
+            this.TFTrayIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.TFTrayIcon.ContextMenuStrip = this.TFTryIconMenu;
             this.TFTrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("TFTrayIcon.Icon")));
             this.TFTrayIcon.Text = "TinkerForge: BrickDaemonManager";
@@ -84,7 +85,7 @@
             this.startServiceToolStripMenuItem.Enabled = false;
             this.startServiceToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("startServiceToolStripMenuItem.Image")));
             this.startServiceToolStripMenuItem.Name = "startServiceToolStripMenuItem";
-            this.startServiceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.startServiceToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.startServiceToolStripMenuItem.Text = "StartService";
             this.startServiceToolStripMenuItem.Click += new System.EventHandler(this.StartServiceToolStripMenuItem_Click);
             // 
@@ -93,7 +94,7 @@
             this.stopServiceToolStripMenuItem.Enabled = false;
             this.stopServiceToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("stopServiceToolStripMenuItem.Image")));
             this.stopServiceToolStripMenuItem.Name = "stopServiceToolStripMenuItem";
-            this.stopServiceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.stopServiceToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.stopServiceToolStripMenuItem.Text = "StopService";
             this.stopServiceToolStripMenuItem.Click += new System.EventHandler(this.StopServiceToolStripMenuItem_Click);
             // 
