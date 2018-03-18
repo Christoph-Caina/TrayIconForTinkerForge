@@ -2,8 +2,7 @@
 using System.ServiceProcess;
 
 namespace TrayIconForTinkerForge
-{
-    class ServiceHandler
+{    class ServiceHandler
     {
         ServiceController sc = new ServiceController("Brick Daemon");
 
@@ -51,7 +50,7 @@ namespace TrayIconForTinkerForge
 
                         returnVar = true;
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         returnVar = false;
                     }
