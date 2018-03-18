@@ -8,3 +8,4 @@ The tool requres Admin rights to be able to interact with the Windows Services M
 known Bugs:
 
 - First indication does not show a Notification (Baloon-Text).
+- Notification (Baloon) is showing the wrong Application Icon (red if running, green if stopped)
