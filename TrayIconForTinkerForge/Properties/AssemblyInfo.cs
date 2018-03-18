@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // Allgemeine Informationen über eine Assembly werden über die folgenden
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
-[assembly: AssemblyTitle("TrayIconForTinkerForge")]
+[assembly: AssemblyTitle("TFTray")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TrayIconForTinkerForge")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyProduct("TFTray")]
+[assembly: AssemblyCopyright("Copyright ©  2018 Christoph Caina")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
