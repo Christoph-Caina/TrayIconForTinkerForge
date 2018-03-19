@@ -140,27 +140,31 @@ namespace TrayIconForTinkerForge
         //=============================================================================================================
         private void Form1_Resize(object sender, System.EventArgs e)
         {
-            if (WindowState == FormWindowState.Minimized)
+            if (FormWindowState.Normal == WindowState)
             {
-                ShowInTaskbar = false;
-                TFTrayIcon.Visible = true;
-                this.Hide();
+                Hide();
+                WindowState = FormWindowState.Minimized;
+            }
+            else if (FormWindowState.Minimized == WindowState)
+            {
+                WindowState = FormWindowState.Normal;
+                Show();
             }
         }
 
         //=============================================================================================================
         private void TFTrayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (FormWindowState.Normal == WindowState)
             {
-                this.Hide();
+                Hide();
+                WindowState = FormWindowState.Minimized;
             }
-            else
+            else if (FormWindowState.Minimized == WindowState)
             {
                 WindowState = FormWindowState.Normal;
+                Show();
             }
-
-            ShowInTaskbar = false;
         }
 
         //=============================================================================================================
