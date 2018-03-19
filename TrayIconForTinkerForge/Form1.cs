@@ -13,8 +13,8 @@ namespace TrayIconForTinkerForge
         {
             InitializeComponent();
             TFTrayIcon.Visible = true;
+
             ShowInTaskbar = false;
-            WindowState = FormWindowState.Minimized;
 
             FormClosing += Form1_FormClosing;               // Form-Closing
 
@@ -29,6 +29,10 @@ namespace TrayIconForTinkerForge
         //=============================================================================================================
         private void Form1_Load(object sender, EventArgs e)
         {
+            // WindowState
+            Hide();
+            WindowState = FormWindowState.Minimized;
+
             label2.ForeColor = Color.Black;
             label2.Text = "detecting...";
         }
@@ -142,7 +146,6 @@ namespace TrayIconForTinkerForge
         {
             if (FormWindowState.Minimized == WindowState)
             {
-                //ShowInTaskbar = false;
                 Hide();
                 WindowState = FormWindowState.Minimized;
             }
@@ -154,7 +157,6 @@ namespace TrayIconForTinkerForge
             if (FormWindowState.Normal == WindowState)
             {
                 Hide();
-                //ShowInTaskbar = false;
                 WindowState = FormWindowState.Minimized;
             }
             else if (FormWindowState.Minimized == WindowState)
