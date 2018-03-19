@@ -5,7 +5,8 @@ You can simply Start / Stop the Service, and open the LogViewer of BrickDaemon.
 
 The tool requres Admin rights to be able to interact with the Windows Services Management (Start / Stop)...
 
-known Bugs:
+ToBeDone:
 
-- First indication does not show a Notification (Baloon-Text).
-- Notification (Baloon) is showing the wrong Application Icon (red if running, green if stopped)
+- further development of new functions (check BrickDaemon Version, download / update / install, etc.)
+- run BrickDaemon in console --> Display Console OutPut in Application
+- Write Wiki-Documentation
