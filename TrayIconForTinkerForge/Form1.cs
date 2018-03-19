@@ -12,11 +12,13 @@ namespace TrayIconForTinkerForge
         public Form1()
         {
             InitializeComponent();
+
             TFTrayIcon.Visible = true;
 
-            ShowInTaskbar = false;
+            //ShowInTaskbar = false;
 
             FormClosing += Form1_FormClosing;               // Form-Closing
+            
 
             ShowBaloon();
 
@@ -30,8 +32,8 @@ namespace TrayIconForTinkerForge
         private void Form1_Load(object sender, EventArgs e)
         {
             // WindowState
-            Hide();
-            WindowState = FormWindowState.Minimized;
+            //Hide();
+            //WindowState = FormWindowState.Minimized;
 
             label2.ForeColor = Color.Black;
             label2.Text = "detecting...";
@@ -144,7 +146,7 @@ namespace TrayIconForTinkerForge
         //=============================================================================================================
         private void Form1_Resize(object sender, System.EventArgs e)
         {
-            if (FormWindowState.Minimized == WindowState)
+            if (WindowState == FormWindowState.Minimized)
             {
                 Hide();
                 WindowState = FormWindowState.Minimized;
@@ -154,17 +156,17 @@ namespace TrayIconForTinkerForge
         //=============================================================================================================
         private void TFTrayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (FormWindowState.Normal == WindowState)
+            if (WindowState == FormWindowState.Minimized)
+            {
+                Show();
+                WindowState = FormWindowState.Normal;
+            }
+            else if (WindowState == FormWindowState.Normal)
             {
                 Hide();
                 WindowState = FormWindowState.Minimized;
             }
-            else if (FormWindowState.Minimized == WindowState)
-            {
-                Show();
-                WindowState = FormWindowState.Normal;
-                ShowInTaskbar = true;
-            }
+
         }
 
         //=============================================================================================================
