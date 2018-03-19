@@ -78,7 +78,7 @@ namespace TrayIconForTinkerForge
         {
             try
             {
-                Process.Start("C:\\Program Files (x86)\\Tinkerforge\\Brickd\\LogViewer.exe");
+                Process.Start("services.msc");
             }
             catch (Exception ex)
             {
