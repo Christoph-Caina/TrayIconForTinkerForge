@@ -140,15 +140,11 @@ namespace TrayIconForTinkerForge
         //=============================================================================================================
         private void Form1_Resize(object sender, System.EventArgs e)
         {
-            if (FormWindowState.Normal == WindowState)
+            if (FormWindowState.Minimized == WindowState)
             {
+                //ShowInTaskbar = false;
                 Hide();
                 WindowState = FormWindowState.Minimized;
-            }
-            else if (FormWindowState.Minimized == WindowState)
-            {
-                WindowState = FormWindowState.Normal;
-                Show();
             }
         }
 
@@ -158,12 +154,14 @@ namespace TrayIconForTinkerForge
             if (FormWindowState.Normal == WindowState)
             {
                 Hide();
+                //ShowInTaskbar = false;
                 WindowState = FormWindowState.Minimized;
             }
             else if (FormWindowState.Minimized == WindowState)
             {
-                WindowState = FormWindowState.Normal;
                 Show();
+                WindowState = FormWindowState.Normal;
+                ShowInTaskbar = true;
             }
         }
 
