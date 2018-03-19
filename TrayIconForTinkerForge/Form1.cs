@@ -18,6 +18,8 @@ namespace TrayIconForTinkerForge
 
             FormClosing += Form1_FormClosing;               // Form-Closing
 
+            ShowBaloon();
+
             timer1.Interval = 1000;
 
             timer1.Enabled = true;
@@ -208,8 +210,8 @@ namespace TrayIconForTinkerForge
 
                             TFTrayIcon.Icon = TrayIconForTinkerForge.Properties.Resources.TF_stopped;
 
-                            TFTrayIcon.BalloonTipTitle = "BrickDaemon Service ist gestoppt!";
-                            TFTrayIcon.BalloonTipText = "Um weiterhin mit deinem Brick-Stapel kommunizieren zu können, muss der Dienst wieder gestartet werden!";
+                            //TFTrayIcon.BalloonTipTitle = "BrickDaemon Service ist gestoppt!";
+                            //TFTrayIcon.BalloonTipText = "Um weiterhin mit deinem Brick-Stapel kommunizieren zu können, muss der Dienst wieder gestartet werden!";
 
                             returnVar = true;
                         }
@@ -234,8 +236,8 @@ namespace TrayIconForTinkerForge
 
                             TFTrayIcon.Icon = TrayIconForTinkerForge.Properties.Resources.TF_running;
 
-                            TFTrayIcon.BalloonTipTitle = "BrickDaemon Service ist gestartet!";
-                            TFTrayIcon.BalloonTipText = "Du kannst nun eine Verbindung mit deinem Brick-Stapel aufbauen.";
+                            //TFTrayIcon.BalloonTipTitle = "BrickDaemon Service ist gestartet!";
+                            //TFTrayIcon.BalloonTipText = "Du kannst nun eine Verbindung mit deinem Brick-Stapel aufbauen.";
 
                             returnVar = true;
                         }
@@ -273,10 +275,26 @@ namespace TrayIconForTinkerForge
                     }
                     break;
             }
+            //TFTrayIcon.ShowBalloonTip(2000);
+            ShowBaloon();
+            return returnVar;
+        }
+
+        private void ShowBaloon()
+        {
+            if (sc.Status == ServiceControllerStatus.Stopped || sc.Status == ServiceControllerStatus.StopPending)
+            {
+                TFTrayIcon.BalloonTipTitle = "BrickDaemon Service ist gestoppt!";
+                TFTrayIcon.BalloonTipText = "Um weiterhin mit deinem Brick-Stapel kommunizieren zu können, muss der Dienst wieder gestartet werden!";
+            }
+
+            else if (sc.Status == ServiceControllerStatus.Running || sc.Status == ServiceControllerStatus.StartPending)
+            {
+                TFTrayIcon.BalloonTipTitle = "BrickDaemon Service ist gestartet!";
+                TFTrayIcon.BalloonTipText = "Du kannst nun eine Verbindung mit deinem Brick-Stapel aufbauen.";
+            }
 
             TFTrayIcon.ShowBalloonTip(2000);
-
-            return returnVar;
         }
     }
 }
