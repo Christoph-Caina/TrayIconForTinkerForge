@@ -9,4 +9,6 @@ ToBeDone:
 
 - further development of new functions (check BrickDaemon Version, download / update / install, etc.)
 - run BrickDaemon in console --> Display Console OutPut in Application
-- Write Wiki-Documentation
+
+## Wiki Documentation
+https://github.com/Christoph-Caina/TrayIconForTinkerForge/wiki
