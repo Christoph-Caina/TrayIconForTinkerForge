@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.ServiceProcess;
+using System.Security.Principal;
 
 namespace TrayIconForTinkerForge
 {
@@ -49,27 +50,55 @@ namespace TrayIconForTinkerForge
         //=============================================================================================================
         private void Button_ServiceStart_Click(object sender, EventArgs e)
         {
-            if (!DoServiceAction("start"))
+            if (RunningAsAdmin())
             {
-                MessageBox.Show("Fehler beim Starten");
+                if (!DoServiceAction("start"))
+                {
+                    MessageBox.Show("Fehler beim Starten");
+                }
+            }
+            else
+            {
+                Elevate();
+                if (!DoServiceAction("start"))
+                {
+                    MessageBox.Show("Fehler beim Starten");
+                }
+                Close();
             }
         }
 
         //=============================================================================================================
         private void Button_ServiceStop_Click(object sender, EventArgs e)
         {
-            if (!DoServiceAction("stop"))
+            if (RunningAsAdmin())
             {
-                MessageBox.Show("Fehler beim Stoppen");
+                if (!DoServiceAction("stop"))
+                {
+                    MessageBox.Show("Fehler beim Stoppen");
+                }
+            }
+            else
+            {
+                Elevate();
+                Close();
             }
         }
 
         //=============================================================================================================
         private void Button_ServiceRestart_Click(object sender, EventArgs e)
         {
-            if (!DoServiceAction("restart"))
+            if (RunningAsAdmin())
             {
-                MessageBox.Show("Fehler beim Neustarten");
+                if (!DoServiceAction("restart"))
+                {
+                    MessageBox.Show("Fehler beim Neustarten");
+                }
+            }
+            else
+            {
+                Elevate();
+                Close();
             }
         }
 
@@ -128,18 +157,34 @@ namespace TrayIconForTinkerForge
         //=============================================================================================================
         private void StartServiceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!DoServiceAction("start"))
+            if (RunningAsAdmin())
             {
-                MessageBox.Show("Fehler beim Starten");
+                if (!DoServiceAction("start"))
+                {
+                    MessageBox.Show("Fehler beim Starten");
+                }
+            }
+            else
+            {
+                Elevate();
+                Close();
             }
         }
 
         //=============================================================================================================
         private void StopServiceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!DoServiceAction("stop"))
+            if (RunningAsAdmin())
             {
-                MessageBox.Show("Fehler beim Stoppen");
+                if (!DoServiceAction("stop"))
+                {
+                    MessageBox.Show("Fehler beim Stoppen");
+                }
+            }
+            else
+            {
+                Elevate();
+                Close();
             }
         }
 
@@ -205,86 +250,86 @@ namespace TrayIconForTinkerForge
         {
             bool returnVar = false;
 
-            switch (ServiceCommand)
-            {
-                case "stop":
-                    try
-                    {
-                        if (sc.Status == ServiceControllerStatus.Running || sc.Status == ServiceControllerStatus.StartPending)
+                switch (ServiceCommand)
+                {
+                    case "stop":
+                        try
                         {
-                            sc.Stop();
-                            sc.WaitForStatus(ServiceControllerStatus.Stopped);
+                            if (sc.Status == ServiceControllerStatus.Running || sc.Status == ServiceControllerStatus.StartPending)
+                            {
+                                sc.Stop();
+                                sc.WaitForStatus(ServiceControllerStatus.Stopped);
 
-                            TFTrayIcon.Icon = Properties.Resources.TF_stopped;
+                                TFTrayIcon.Icon = Properties.Resources.TF_stopped;
 
-                            //TFTrayIcon.BalloonTipTitle = "BrickDaemon Service ist gestoppt!";
-                            //TFTrayIcon.BalloonTipText = "Um weiterhin mit deinem Brick-Stapel kommunizieren zu können, muss der Dienst wieder gestartet werden!";
+                                //TFTrayIcon.BalloonTipTitle = "BrickDaemon Service ist gestoppt!";
+                                //TFTrayIcon.BalloonTipText = "Um weiterhin mit deinem Brick-Stapel kommunizieren zu können, muss der Dienst wieder gestartet werden!";
 
-                            returnVar = true;
+                                returnVar = true;
+                            }
+                            else
+                            {
+                                returnVar = false;
+                            }
                         }
-                        else
-                        {
-                            returnVar = false;
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        returnVar = false;
-                    }
-                    break;
-
-                case "start":
-                    try
-                    {
-                        if (sc.Status == ServiceControllerStatus.Stopped || sc.Status == ServiceControllerStatus.StopPending)
-                        {
-                            sc.Start();
-                            sc.WaitForStatus(ServiceControllerStatus.Running);
-
-                            TFTrayIcon.Icon = Properties.Resources.TF_running;
-
-                            //TFTrayIcon.BalloonTipTitle = "BrickDaemon Service ist gestartet!";
-                            //TFTrayIcon.BalloonTipText = "Du kannst nun eine Verbindung mit deinem Brick-Stapel aufbauen.";
-
-                            returnVar = true;
-                        }
-                        else
+                        catch (Exception)
                         {
                             returnVar = false;
                         }
-                    }
-                    catch (Exception)
-                    {
-                        returnVar = false;
-                    }
-                    break;
+                        break;
 
-                case "restart":
-                    try
-                    {
-                        if (sc.Status == ServiceControllerStatus.Running || sc.Status == ServiceControllerStatus.StartPending)
+                    case "start":
+                        try
                         {
-                            sc.Stop();
-                            sc.WaitForStatus(ServiceControllerStatus.Stopped);
-                            sc.Start();
-                            sc.WaitForStatus(ServiceControllerStatus.Running);
+                            if (sc.Status == ServiceControllerStatus.Stopped || sc.Status == ServiceControllerStatus.StopPending)
+                            {
+                                sc.Start();
+                                sc.WaitForStatus(ServiceControllerStatus.Running);
 
-                            returnVar = true;
+                                TFTrayIcon.Icon = Properties.Resources.TF_running;
+
+                                //TFTrayIcon.BalloonTipTitle = "BrickDaemon Service ist gestartet!";
+                                //TFTrayIcon.BalloonTipText = "Du kannst nun eine Verbindung mit deinem Brick-Stapel aufbauen.";
+
+                                returnVar = true;
+                            }
+                            else
+                            {
+                                returnVar = false;
+                            }
                         }
-                        else
+                        catch (Exception)
                         {
                             returnVar = false;
                         }
-                    }
-                    catch (Exception)
-                    {
-                        returnVar = false;
-                    }
-                    break;
-            }
-            //TFTrayIcon.ShowBalloonTip(2000);
-            ShowBaloon();
-            return returnVar;
+                        break;
+
+                    case "restart":
+                        try
+                        {
+                            if (sc.Status == ServiceControllerStatus.Running || sc.Status == ServiceControllerStatus.StartPending)
+                            {
+                                sc.Stop();
+                                sc.WaitForStatus(ServiceControllerStatus.Stopped);
+                                sc.Start();
+                                sc.WaitForStatus(ServiceControllerStatus.Running);
+
+                                returnVar = true;
+                            }
+                            else
+                            {
+                                returnVar = false;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            returnVar = false;
+                        }
+                        break;
+                }
+                //TFTrayIcon.ShowBalloonTip(2000);
+                ShowBaloon();
+                return returnVar;
         }
 
         //=============================================================================================================
@@ -304,5 +349,35 @@ namespace TrayIconForTinkerForge
 
             TFTrayIcon.ShowBalloonTip(2000);
         }
+
+        //=============================================================================================================
+        internal static bool RunningAsAdmin()
+        {
+            var principle = new WindowsPrincipal(WindowsIdentity.GetCurrent());
+            return principle.IsInRole(WindowsBuiltInRole.Administrator);
+        }
+
+        //=============================================================================================================
+        private static bool Elevate()
+        {
+            var SelfProc = new ProcessStartInfo
+            {
+                UseShellExecute = true,
+                WorkingDirectory = Environment.CurrentDirectory,
+                FileName = Application.ExecutablePath,
+                Verb = "runas"
+            };
+            try
+            {
+                Process.Start(SelfProc);
+                return true;
+            }
+            catch
+            {
+                MessageBox.Show("Unable to elevate!");
+                return false;
+            }
+        }
     }
+
 }
