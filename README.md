@@ -1,7 +1,5 @@
 # TFTray Documentation
 
-***
-
 ## Purpose of this Application
 The TFTray is the result of the development of another Application that I am writing for using TinkerForge Hardware.
 Due to the fact, that the Communication with the Bricks and Bricklets will be handled by the BrickDaemon Software, it must be assured, that the Service is running if your Software should connect with the Bricks.
@@ -26,7 +24,7 @@ This is also valid for starting or stopping a Service on Windows.
 Windows will show a Dialog, the so called UAC if an Application is requesting Administrative rights for performing any kind of changes on the system.
 
 For TFTray, this means, that the Application will be forced to show the UAC Dialog.
-If the user is accepting the request, the Application needs to be restarted with the new privileges.
+If the user is accepting the request, the Application needs to be restarted with the new privileges.  
 ![Windows UAC Dialog](https://christoph.caina.family/dev/TinkerForge/TFTray/doc/img/TFUacDialog.png)
 
 F.e. the Application will be started and detect, that the BrickDaemon is not running.
