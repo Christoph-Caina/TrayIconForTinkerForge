@@ -162,7 +162,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(237, 0);
+            this.label2.Location = new System.Drawing.Point(290, 131);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(0, 24);
             this.label2.TabIndex = 8;
@@ -171,7 +171,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Location = new System.Drawing.Point(12, 131);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(228, 24);
             this.label1.TabIndex = 6;
@@ -196,8 +196,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.button_ServiceRestart);
             this.panel1.Controls.Add(this.button_ServiceStop);
             this.panel1.Controls.Add(this.button1);
@@ -213,6 +211,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(389, 260);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -228,8 +228,8 @@
             this.TFTryIconMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

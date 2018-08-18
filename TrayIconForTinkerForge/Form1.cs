@@ -4,15 +4,23 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.ServiceProcess;
 using System.Security.Principal;
+using System.Globalization;
+using System.Resources;
+using System.Reflection;
 
 namespace TrayIconForTinkerForge
 {
     public partial class Form1 : Form
     {
+        ResourceManager res_man;
+
         //=============================================================================================================
         public Form1()
         {
             InitializeComponent();
+            res_man = new ResourceManager(Assembly.GetCallingAssembly().EntryPoint.DeclaringType.Namespace.ToString() + "." + CultureInfo.CurrentUICulture.ThreeLetterISOLanguageName, Assembly.GetExecutingAssembly());
+
+            label1.Text = res_man.GetString("_BrickStatusDisplay");
 
             TFTrayIcon.Visible = true;
 
@@ -30,7 +38,7 @@ namespace TrayIconForTinkerForge
         private void Form1_Load(object sender, EventArgs e)
         {
             label2.ForeColor = Color.Black;
-            label2.Text = "detecting...";
+            label2.Text = res_man.GetString("_detecting");
         }
 
         //=============================================================================================================
@@ -47,7 +55,7 @@ namespace TrayIconForTinkerForge
             {
                 if (!DoServiceAction("start"))
                 {
-                    MessageBox.Show("Fehler beim Starten");
+                    MessageBox.Show(res_man.GetString("_errorDuringStartOfService"));
                 }
             }
             else
@@ -55,7 +63,7 @@ namespace TrayIconForTinkerForge
                 Elevate();
                 if (!DoServiceAction("start"))
                 {
-                    MessageBox.Show("Fehler beim Starten");
+                    MessageBox.Show(res_man.GetString("_errorDuringStartOfService"));
                 }
                 Close();
             }
@@ -68,7 +76,7 @@ namespace TrayIconForTinkerForge
             {
                 if (!DoServiceAction("stop"))
                 {
-                    MessageBox.Show("Fehler beim Stoppen");
+                    MessageBox.Show(res_man.GetString("_errorDuringStopOfService"));
                 }
             }
             else
@@ -85,7 +93,7 @@ namespace TrayIconForTinkerForge
             {
                 if (!DoServiceAction("restart"))
                 {
-                    MessageBox.Show("Fehler beim Neustarten");
+                    MessageBox.Show(res_man.GetString("_errorDuringReStartOfService"));
                 }
             }
             else
@@ -154,7 +162,7 @@ namespace TrayIconForTinkerForge
             {
                 if (!DoServiceAction("start"))
                 {
-                    MessageBox.Show("Fehler beim Starten");
+                    MessageBox.Show(res_man.GetString("_errorDuringStartOfService"));
                 }
             }
             else
@@ -171,7 +179,7 @@ namespace TrayIconForTinkerForge
             {
                 if (!DoServiceAction("stop"))
                 {
-                    MessageBox.Show("Fehler beim Stoppen");
+                    MessageBox.Show(res_man.GetString("_errorDuringStopOfService"));
                 }
             }
             else
@@ -255,9 +263,6 @@ namespace TrayIconForTinkerForge
 
                                 TFTrayIcon.Icon = Properties.Resources.TF_stopped;
 
-                                //TFTrayIcon.BalloonTipTitle = "BrickDaemon Service ist gestoppt!";
-                                //TFTrayIcon.BalloonTipText = "Um weiterhin mit deinem Brick-Stapel kommunizieren zu können, muss der Dienst wieder gestartet werden!";
-
                                 returnVar = true;
                             }
                             else
@@ -327,14 +332,14 @@ namespace TrayIconForTinkerForge
         {
             if (sc.Status == ServiceControllerStatus.Stopped || sc.Status == ServiceControllerStatus.StopPending)
             {
-                TFTrayIcon.BalloonTipTitle = "BrickDaemon Service ist gestoppt!";
-                TFTrayIcon.BalloonTipText = "Um weiterhin mit deinem Brick-Stapel kommunizieren zu können, muss der Dienst wieder gestartet werden!";
+                TFTrayIcon.BalloonTipTitle = res_man.GetString("_BrickDeamonIsStoppedTitle");
+                TFTrayIcon.BalloonTipText = res_man.GetString("_BrickDeamonIsStoppedText");   // "Um weiterhin mit deinem Brick-Stapel kommunizieren zu können, muss der Dienst wieder gestartet werden!";
             }
 
             else if (sc.Status == ServiceControllerStatus.Running || sc.Status == ServiceControllerStatus.StartPending)
             {
-                TFTrayIcon.BalloonTipTitle = "BrickDaemon Service ist gestartet!";
-                TFTrayIcon.BalloonTipText = "Du kannst nun eine Verbindung mit deinem Brick-Stapel aufbauen.";
+                TFTrayIcon.BalloonTipTitle = res_man.GetString("_BrickDeamonIsStartedTitle"); // "BrickDaemon Service ist gestartet!";
+                TFTrayIcon.BalloonTipText = res_man.GetString("_BrickDeamonIsStartedText");   // "Du kannst nun eine Verbindung mit deinem Brick-Stapel aufbauen.";
             }
 
             TFTrayIcon.ShowBalloonTip(2000);

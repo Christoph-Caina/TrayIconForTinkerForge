@@ -88,16 +88,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="deu.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>deu.resx</DependentUpon>
+    </Compile>
+    <Compile Include="eng.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>eng.resx</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="fra.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>fra.resx</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="deu.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>deu.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="eng.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>eng.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fra.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>fra.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
