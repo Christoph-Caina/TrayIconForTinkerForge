@@ -16,10 +16,7 @@ namespace TrayIconForTinkerForge
 
             TFTrayIcon.Visible = true;
 
-            //ShowInTaskbar = false;
-
             FormClosing += Form1_FormClosing;               // Form-Closing
-            
 
             ShowBaloon();
 
@@ -32,10 +29,6 @@ namespace TrayIconForTinkerForge
         //=============================================================================================================
         private void Form1_Load(object sender, EventArgs e)
         {
-            // WindowState
-            //Hide();
-            //WindowState = FormWindowState.Minimized;
-
             label2.ForeColor = Color.Black;
             label2.Text = "detecting...";
         }
@@ -150,7 +143,7 @@ namespace TrayIconForTinkerForge
                 label2.ForeColor = Color.DarkGreen;
                 TFTrayIcon.Icon = Properties.Resources.TF_running;
             }
-
+            
             label2.Text = sc.Status.ToString();
         }
 
@@ -287,9 +280,6 @@ namespace TrayIconForTinkerForge
                                 sc.WaitForStatus(ServiceControllerStatus.Running);
 
                                 TFTrayIcon.Icon = Properties.Resources.TF_running;
-
-                                //TFTrayIcon.BalloonTipTitle = "BrickDaemon Service ist gestartet!";
-                                //TFTrayIcon.BalloonTipText = "Du kannst nun eine Verbindung mit deinem Brick-Stapel aufbauen.";
 
                                 returnVar = true;
                             }
